@@ -8,8 +8,6 @@ SECRET_KEY = ')dq%h#fuqfr-zt8#o=_o&*6r^(=g-3o*6p4mi8--z_8n@3x2*#'
 
 # Application definition
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -20,26 +18,23 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'taskmanager.middleware.AuthMiddleware',
 ]
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    #{
+        #'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    #},
+    #{
+        #'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    #},
+    #{
+        #'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    #},
+    #{
+        #'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    #},
 ]
 
 ROOT_URLCONF = 'taskmanager.urls'
@@ -50,7 +45,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.request',
                 'django.template.context_processors.i18n',
             ],
@@ -76,7 +70,7 @@ STATIC_URL = '/api/static/'
 STATIC_ROOT = BASE_DIR + "/static/"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR + "/media/"
-
+LOGIN_URL = '/admin/login'
 LOGGING = {
     'disable_existing_loggers': False,
     'version': 1,

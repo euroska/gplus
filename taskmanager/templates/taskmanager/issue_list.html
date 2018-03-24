@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul>
+{% for issue in object_list %}
+    <li>{{ issue.title }}</li>
+{% empty %}
+    <li>No issue yet.</li>
+{% endfor %}
+</ul>
+<a href="/issue/add/">Add issue</a>
+{% endblock %}
