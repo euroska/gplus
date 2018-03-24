@@ -12,6 +12,7 @@
                             {% block branding %}U+ task list{% endblock %}
                 </h1>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    {% if request.user %}
                     <ul class="navbar-nav mr-auto">
                         {% if request.user.is_superadmin %}
                         <li class="nav-item">
@@ -38,6 +39,7 @@
                             <a class="nav-link" href="{% url 'tag' %}">Tag list</a>
                         </li>
                     </ul>
+                    {% endif %}
                 </div>
 
                 {% if request.user %}

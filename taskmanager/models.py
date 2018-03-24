@@ -68,6 +68,7 @@ class Issue(models.Model):
 
     title = models.CharField(max_length=50)
     description = models.TextField()
+
     # use enum values, can be used with language pack...
     state = models.IntegerField(
         choices=(
@@ -78,6 +79,7 @@ class Issue(models.Model):
         default=CH_STATE_OPEN,
     )
 
+    # other fields...
     created = models.DateTimeField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
 
@@ -93,6 +95,10 @@ class Issue(models.Model):
     __unicode__ = __str__
 
     def save(self, *args, **kwargs):
+        '''
+        If close set finished atribute, set durations.
+        Another method is use pre_save signal...
+        '''
         if self.finished is not None and self.duration is None:
             self.duration = (self.finished - self.created).seconds
 

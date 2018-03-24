@@ -3,7 +3,6 @@ import os
 DEBUG = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = ')dq%h#fuqfr-zt8#o=_o&*6r^(=g-3o*6p4mi8--z_8n@3x2*#'
 
 # Application definition
@@ -11,7 +10,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'taskmanager',
 ]
 
@@ -20,21 +18,6 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'taskmanager.middleware.AuthMiddleware',
-]
-
-AUTH_PASSWORD_VALIDATORS = [
-    #{
-        #'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    #},
-    #{
-        #'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    #},
-    #{
-        #'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    #},
-    #{
-        #'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    #},
 ]
 
 ROOT_URLCONF = 'taskmanager.urls'
@@ -66,10 +49,6 @@ USE_I18N = True
 
 USE_L10N = True
 USE_TZ = True
-STATIC_URL = '/api/static/'
-STATIC_ROOT = BASE_DIR + "/static/"
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR + "/media/"
 LOGIN_URL = '/admin/login'
 LOGGING = {
     'disable_existing_loggers': False,

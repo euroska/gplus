@@ -1,1 +1,1 @@
-recursive-include invoiceapp/templates *
+recursive-include taskmanager/templates *

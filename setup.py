@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name='taskmanager',
@@ -8,8 +8,11 @@ setup(
     author='Martin Miksanik',
     author_email='miksanik@gmail.com',
     url='https://github.com/euroska/uplus',
-    packages=['taskmanager'],
+    packages=find_packages(),
+    include_package_data=True,
+    zip_safe=False,
     install_requires=[
+        'django',
     ],
     scripts=[
         'bin/taskmanager'

@@ -6,6 +6,7 @@ from django.views.static import serve
 from .decorators import isAuthenticated, isAdmin
 from .views import *
 
+# applications url patterns
 urlpatterns = [
     path('', isAuthenticated(IssueListView.as_view()), name='issue'),
     path('issue/add/', isAdmin(IssueAddView.as_view()), name='issue-add'),

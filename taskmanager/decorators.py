@@ -1,8 +1,12 @@
 from functools import wraps
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseRedirect
+from .views import AuthView
 
 
 def isAuthenticated(f):
+    '''
+    Decorator: user is logged
+    '''
     @wraps(f)
     def wrapper(request, *args, **kwargs):
         if request.user is not None:
@@ -14,10 +18,15 @@ def isAuthenticated(f):
 
 
 def isAdmin(f):
+    '''
+    Decorator: user is superadmin
+    '''
+
     @wraps(f)
     def wrapper(request, *args, **kwargs):
         if request.user is not None and request.user.is_superadmin:
             return f(request, *args, **kwargs)
 
-        return HttpResponseForbidden()
+        return AuthView.as_view()(request, *args, **kwargs)
+
     return wrapper
