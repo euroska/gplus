@@ -1,11 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<ul>
-{% for user in object_list %}
-    <li>{{ user }}</li>
-{% endfor %}
-</ul>
-<a href="/user/add/">Add user</a>
-{% endblock %}
+<table class="table table-striped">
+    <tr>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Company</th>
+        <th>Superadmin?</th>
+        <th>Action</th>
+    </tr>
 
+{% for user in object_list %}
+    <tr>
+        <td><a href="{% url 'user-update' user.pk %}">{{ user.username }}</a></td>
+        <td>{{ user.first_name|default_if_none:"Unknown" }}</td>
+        <td>{{ user.last_name|default_if_none:"Unknown" }}</td>
+        <td>{{ user.company|default_if_none:"Unknown" }}</td>
+        <td>{{ user.is_superadmin|yesno }}</td>
+        <td>
+            <a href="{% url 'user-delete' user.pk %}">Delete</a>
+        </td>
+    </tr>
+{% empty %}
+    <tr><td colspan="6">No users yet.</td></tr>
+{% endfor %}
+</table>
+{% endblock %}

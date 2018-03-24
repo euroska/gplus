@@ -92,3 +92,9 @@ class Issue(models.Model):
     # python2 compatible?
     __unicode__ = __str__
 
+    def save(self, *args, **kwargs):
+        if self.finished is not None and self.duration is None:
+            self.duration = (self.finished - self.created).seconds
+
+        return super(Issue, self).save(*args, **kwargs)
+

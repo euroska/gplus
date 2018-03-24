@@ -1,12 +1,94 @@
 {% extends "base.html" %}
+{% load numbers %}
 
 {% block content %}
-<ul>
-{% for issue in object_list %}
-    <li>{{ issue.title }}</li>
-{% empty %}
-    <li>No issue yet.</li>
-{% endfor %}
-</ul>
-<a href="/issue/add/">Add issue</a>
+    <div class="row">
+        <div class="col-10">
+            <h3>Stats</h3>
+            <table  class="table table-condensed table-striped">
+                <tr>
+                    <th>Max</th>
+                    <th>Min</th>
+                    <th>Avg</th>
+                    <th>Count</th>
+                </tr>
+
+                <tr>
+                    <td>{{ stats.duration__max }}s</td>
+                    <td>{{ stats.duration__max }}s</td>
+                    <td>{{ stats.duration__max }}s</td>
+                    <td>{{ object_list.count }}</td>
+                </tr>
+            </table>
+
+            <h3>Tasks</h3>
+            <table class="table table-striped">
+                <tr>
+                    <th>Title</th>
+                    <th>State</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th>Solved</th>
+                    <th>Duration</th>
+                    <th>Submitter</th>
+                    <th>Finished</th>
+                    <th>Tags</th>
+                    <th>Delete</th>
+                </tr>
+
+            {% for issue in object_list %}
+                <tr>
+                    <td><a href="{% url 'issue-update' issue.pk %}">{{ issue.title }}</a></td>
+                    <td>{{ issue.get_state_display }}</td>
+                    <td>{{ issue.created }}</td>
+                    <td>{{ issue.last_update }}</td>
+                    <td>{{ issue.finished }}</td>
+                    <td>{{ issue.duration }}</td>
+                    <td><a href="{% url 'user-update' issue.submitter_id %}">{{ issue.submitter }}</a></td>
+                    <td><a href="{% url 'user-update' issue.solver_id %}">{{ issue.solver }}</a></td>
+                    <td>
+                        {% for tag in issue.tags.all %}
+                            {{ tag }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{% url 'issue-delete' issue.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="7">No issue yet.</td></tr>
+            {% endfor %}
+            </table>
+        </div>
+
+        <div class="col-2">
+            <h3>Simple filters</h3>
+
+            <h4>Filter by atg:</h4>
+            <a href="?tag=">All</a><br>
+
+            {% for tag in tags %}
+                {% if tag.pk == request.GET.tag|int %}
+                    {{ tag }}
+                {% else %}
+                    <a href="?user={{ request.GET.user }}&amp;tag={{ tag.id }}">{{ tag }}</a>
+                {% endif %}
+                <br>
+            {% endfor %}
+
+            <br />
+
+            <h4>Filter by user:</h4>
+            <a href="?user=">All</a><br>
+
+            {% for user in users %}
+                {% if user.pk == request.GET.user|int %}
+                    {{ user }}
+                {% else %}
+                    <a href="?user={{ user.pk }}&amp;tag={{ request.GET.tag }}">{{ user }}</a>
+                {% endif %}
+                <br>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

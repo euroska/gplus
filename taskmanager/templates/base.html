@@ -11,6 +11,38 @@
                 <h1 class="navbar-brand" href="#">
                             {% block branding %}U+ task list{% endblock %}
                 </h1>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        {% if request.user.is_superadmin %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'issue-add' %}">Add issue</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'issue' %}">Issue list</a>
+                        </li>
+                        {% if request.user.is_superadmin %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user-add' %}">Add user</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user' %}">User list</a>
+                        </li>
+                        {% if request.user.is_superadmin %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'tag-add' %}">Add tag</a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'tag' %}">Tag list</a>
+                        </li>
+                    </ul>
+                </div>
+
+                {% if request.user %}
+                    <a href="{% url 'logout' %}">Logout</a>
+                {% endif %}
             </nav>
             {% endblock %}
         </header>
@@ -21,9 +53,29 @@
             {% endblock %}
         </content>
 
-        <footer>
+        <footer class="page-footer font-small blue pt-4 mt-4">
             {% block footer %}
-            Footer
+                <!--Footer Links-->
+                <div class="container-fluid text-center text-md-left">
+                    <div class="row">
+
+                        <!--First column-->
+                        <div class="col-md-6">
+                            <h5 class="text-uppercase">Footer Content</h5>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porttitor est massa, vitae malesuada arcu condimentum vitae. Aenean nisi elit.
+                            </p>
+                        </div>
+                        <!--/.First column-->
+                    </div>
+                </div>
+                <!--/.Footer Links-->
+
+                <!--Copyright-->
+                <div class="footer-copyright py-3 text-center">
+                    Copyright is not needed.
+                </div>
+                <!--/.Copyright-->
             {% endblock %}
         </footer>
 
